@@ -1,0 +1,50 @@
+<div class="container" style="margin-bottom:20px;padding-top:20px;">
+  <div class="row">
+    <div class="col-sm-12 btn btn-success">
+      Informações da Doação
+    </div>
+  </div>
+  <div class="col-sm-12" style="margin-bottom:20px;padding-top:20px;">
+    <div class="row">
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-toggle="modal" routerLink="/addemployee">
+          Adicionar nova Doação
+        </button>
+      </div>
+      <div class="col-sm-6">
+        <!-- <input class="form-control" type="text" name="search" [(ngModel)]="filter" placeholder="Search"> -->
+        <input class="form-control" type="text" name="search"  placeholder="Search">
+        <!-- <input class="form-control" type="text" name="search" [ngModel]="filter" placeholder="Search"> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" style="padding-top:20px;">
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <th>Quantidades de Peças</th>
+      <th>Doador</th>
+      <th>Intituição</th>
+      <th>Status</th>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let e of donation | async|filter:filter| paginate: { itemsPerPage: 5, currentPage: p } ; let i=index"> -->
+      <tr *ngFor="let e of donation | paginate: { itemsPerPage: 5} ; let i=index">
+        <td>{{e.Quantidade}}</td>
+        <td>{{e.Doador}}</td>
+        <td>{{e.Instituicao}}</td>
+        <td>{{e.Status}}</td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary mr-1" (click)="DonationEdit(e.Id)">Edit</button>
+            <button type="button" class="btn btn-danger mr-1" (click)="DeleteDonation(e.Id)">Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="pagination">
+    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    <!-- <pagination-controls (pageChange)="p = 1"></pagination-controls> -->
+  </ul>
+</div>
