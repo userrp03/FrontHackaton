@@ -13,7 +13,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   postLogIn(userName: String, password: String): Observable<any> {
-    return this.http.post(API + '/', { userName, password }, { observe: 'response'})
+    return this.http.post(API + '/api/Autenticacao', { userName, password }, { observe: 'response'})
   }
 
 }

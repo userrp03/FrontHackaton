@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginInstitutionComponent } from './login-institution/login-institution.component';
 import { AuthGuard } from './login-institution/auth-guard';
 import { SigninInstitutionComponent } from './signin-institution/signin-institution.component';
+import { DonationListComponent } from './donation-list/donation-list.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,12 @@ const routes: Routes = [
     component: SigninInstitutionComponent
   },
   {
-    path:"donation", 
+    path: "institution",
+    component: DonationListComponent
+    //canActivate: [AuthGuard],
+  },
+  {
+    path:"donation/:id", 
     component: DonationComponent,
     canActivate: [AuthGuard],
   },
