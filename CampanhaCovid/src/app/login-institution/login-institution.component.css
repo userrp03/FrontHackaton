@@ -1,13 +1,13 @@
-.donation-card {
+.login-card {
     max-width: 400px;
   }
 
-  .donation-form {
+  .login-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
   }
   
-  .donation-full-width {
+  .login-full-width {
     width: 100%;
   }
