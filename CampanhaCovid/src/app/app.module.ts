@@ -14,6 +14,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { HomeComponent } from './home/home.component';
 import { DonationComponent } from './donation/donation.component';
@@ -45,7 +49,11 @@ import { DonationListComponent } from './donation-list/donation-list.component';
     MatToolbarModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   providers: [DonationRecordService],
   bootstrap: [AppComponent]

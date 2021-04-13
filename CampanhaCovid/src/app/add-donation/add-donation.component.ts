@@ -3,6 +3,9 @@ import { Donation } from './../donation';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { InstituicaoDTO } from '../model/instituicao-dto';
+import { InstitutionService } from '../donation/institution.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-donation',
@@ -13,52 +16,43 @@ export class AddDonationComponent implements OnInit {
 
   massage: string;
   dataSaved = false;
-  AddDonation:FormGroup;
+  AddDonation: FormGroup;
   DonationIdUpdate = "0";
-  constructor(private router: Router,private donationService:DonationRecordService) { }
 
-  InsertDonation(donation:Donation)
-  {
+  instituicaoList: InstituicaoDTO[]
+  statusOptions: string[] = ['Posso Entregar na Instituição', 'Preciso que coletem em minha casa']
+  constructor(
+    private router: Router,
+    private donationService: DonationRecordService,
+    private institutionService: InstitutionService) { }
+
+  InsertDonation(donation: Donation) {
     // debugger;
-    if (this.DonationIdUpdate != "0") donation.Id=this.DonationIdUpdate;
-      this.donationService.InsertDonation(donation).subscribe(
-        ()=>
-        {
-          if (this.DonationIdUpdate == "0") {
-            this.massage = 'Saved Successfully';
+    if (this.DonationIdUpdate != "0") donation.Id = this.DonationIdUpdate;
+    this.donationService.InsertDonation(donation).subscribe(
+      () => {
+        if (this.DonationIdUpdate == "0") {
+          this.massage = 'Saved Successfully';
 
-          }
-          else
-          {
-            this.massage = 'Update Successfully';
-          }
-          this.dataSaved = true;
-          this.router.navigate(['/Donation']);
-        })
+        }
+        else {
+          this.massage = 'Update Successfully';
+        }
+        this.dataSaved = true;
+        this.router.navigate(['/Donation']);
+      })
   }
   onFormSubmit() {
     const donation = this.AddDonation.value;
+    donation.Status = donation.Status === 'Preciso que coletem em minha casa' ? true: false
     this.InsertDonation(donation);
   }
 
-  DonationEdit(id: string) {
-    // debugger;
-    this.donationService.GetDonationById(id).subscribe(donation => {
-      this.massage = null;
-      this.dataSaved = false;
-      // debugger;
-      this.DonationIdUpdate=id;
-      this.AddDonation.controls['Quantidade'].setValue(donation.Id);
-      this.AddDonation.controls['Doador'].setValue(donation.IdDoador);
-      this.AddDonation.controls['Instituicao'].setValue(donation.IdInstituicao);
-      this.AddDonation.controls['Status'].setValue(donation.Status);
-    });
-    // debugger;
-  }
   clearform() {
     // debugger;
     this.AddDonation.controls['Quantidade'].setValue("");
-    this.AddDonation.controls['Doador'].setValue("");
+    this.AddDonation.controls['NomeDoador'].setValue("");
+    this.AddDonation.controls['EmailDoador'].setValue("");
     this.AddDonation.controls['Instituicao'].setValue("");
     this.AddDonation.controls['Status'].setValue("");
   }
@@ -66,15 +60,15 @@ export class AddDonationComponent implements OnInit {
     this.AddDonation = new FormGroup({
 
       Quantidade: new FormControl(),
-      Doador:new FormControl(),
-      Instituicao:new FormControl(),
-      Status:new FormControl(),
+      NomeDoador: new FormControl(),
+      EmailDoador: new FormControl(),
+      Instituicao: new FormControl(),
+      Status: new FormControl(),
 
-  });
-  let Id = localStorage.getItem("id");
-    if(Id!=null)
-    {
-      this.DonationEdit(Id) ;
-    }}
-    }
+
+    });
+    
+    this.institutionService.getAll().subscribe(res => this.instituicaoList = res)
+  }
+}
 
