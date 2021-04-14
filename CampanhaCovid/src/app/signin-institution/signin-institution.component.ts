@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { InstitutionService } from '../donation/institution.service';
 import { SignInInstituicaoDTO } from '../model/singin-instituicao-dto';
 
@@ -14,7 +15,8 @@ export class SigninInstitutionComponent implements OnInit {
   instituicaoSignInForm: FormGroup
   constructor(
     private formBuilder: FormBuilder,
-    private institutionService: InstitutionService
+    private institutionService: InstitutionService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -55,7 +57,11 @@ export class SigninInstitutionComponent implements OnInit {
       enderecoComplemento: this.instituicaoSignInForm.get('enderecoComplemento').value
     }
 
-    this.institutionService.post(dados).subscribe(res => {})
+    this.institutionService.post(dados).subscribe(res => {
+      this.router.navigate(['login'])
+    }, err => {
+      alert("Erro ao registrar Instituição")
+    })
   }
 
 }

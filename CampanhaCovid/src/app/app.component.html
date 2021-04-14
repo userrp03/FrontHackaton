@@ -2,7 +2,13 @@
     <button mat-icon-button routerLink="/">
         <span >{{title}}</span>
       </button>    
-    <span class="example-spacer"></span>    
+    <span class="example-spacer"></span>  
+    <button mat-icon-button class="example-icon favorite-icon" 
+    aria-label="Sair"
+    *ngIf="isLogado()"
+    (click)="logOut()">
+      <mat-icon>login</mat-icon>
+    </button>  
 </mat-toolbar>
 
 <router-outlet></router-outlet>

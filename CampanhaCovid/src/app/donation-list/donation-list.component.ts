@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DonationService } from '../add-donation/donation.service';
+import { Donation } from '../donation';
 import { InstitutionService } from '../donation/institution.service';
 
 @Component({
@@ -8,35 +10,18 @@ import { InstitutionService } from '../donation/institution.service';
 })
 export class DonationListComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['Código da doação', 'Nome do doador', 'Email do doador', 'Quantidade de peças', 'Necessitam de coleta ?'];
+  dataSource: Donation[]
 
-  constructor(private institutionService: InstitutionService) { }
+  institutionId: string
 
-  ngOnInit(): void {
+  constructor(
+    private institutionService: InstitutionService,
+    private donationService: DonationService) { 
+    this.institutionId = localStorage.getItem('authToken')
   }
 
+  ngOnInit(): void {
+   this.donationService.getDonationByInstitution(this.institutionId).subscribe(res => { this.dataSource = res})
+  }
 }
-
-
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];

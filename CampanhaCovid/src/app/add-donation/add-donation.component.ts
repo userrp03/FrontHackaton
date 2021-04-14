@@ -26,26 +26,10 @@ export class AddDonationComponent implements OnInit {
     private donationService: DonationRecordService,
     private institutionService: InstitutionService) { }
 
-  InsertDonation(donation: Donation) {
-    // debugger;
-    if (this.DonationIdUpdate != "0") donation.Id = this.DonationIdUpdate;
-    this.donationService.InsertDonation(donation).subscribe(
-      () => {
-        if (this.DonationIdUpdate == "0") {
-          this.massage = 'Saved Successfully';
-
-        }
-        else {
-          this.massage = 'Update Successfully';
-        }
-        this.dataSaved = true;
-        this.router.navigate(['/Donation']);
-      })
-  }
   onFormSubmit() {
-    const donation = this.AddDonation.value;
-    donation.Status = donation.Status === 'Preciso que coletem em minha casa' ? true: false
-    this.InsertDonation(donation);
+    const donation: Donation = this.AddDonation.value;
+    donation.Transporte = this.AddDonation.get('Transporte').value === 'Preciso que coletem em minha casa' ? true: false
+    this.donationService.InsertDonation(donation).subscribe(() => {this.router.navigate(['/']);})
   }
 
   clearform() {
@@ -58,14 +42,11 @@ export class AddDonationComponent implements OnInit {
   }
   ngOnInit() {
     this.AddDonation = new FormGroup({
-
-      Quantidade: new FormControl(),
-      NomeDoador: new FormControl(),
+      QuantidadePecas: new FormControl(),
+      NomeCompeltoDoador: new FormControl(),
       EmailDoador: new FormControl(),
-      Instituicao: new FormControl(),
-      Status: new FormControl(),
-
-
+      IdInstituicao: new FormControl(),
+      Transporte: new FormControl()
     });
     
     this.institutionService.getAll().subscribe(res => this.instituicaoList = res)

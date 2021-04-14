@@ -30,7 +30,8 @@ export class LoginInstitutionComponent implements OnInit {
     var password: String = this.loginForm.get('password').value
 
     this.loginService.postLogIn(userName, password).subscribe(res => {
-      this.router.navigate(['donate'])
+      localStorage.setItem('authToken', res.body.id);
+      this.router.navigate(['institution'])
     })
   }
 }

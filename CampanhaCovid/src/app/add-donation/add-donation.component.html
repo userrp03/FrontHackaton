@@ -7,12 +7,12 @@
     <form [formGroup]="AddDonation" (ngSubmit)="onFormSubmit()">
       <mat-form-field class="donation-full-width">
         <mat-label>Quantidades de Peças</mat-label>
-        <input matInput type="number" formControlName="Quantidade" required/>
+        <input matInput type="number" formControlName="QuantidadePecas" required/>
       </mat-form-field>
 
       <mat-form-field class="donation-full-width">
         <mat-label>Nome Completo do Doador</mat-label>
-        <input matInput type="text" formControlName="NomeDoador" required/>
+        <input matInput type="text" formControlName="NomeCompeltoDoador" required/>
       </mat-form-field>
 
       <mat-form-field class="donation-full-width">
@@ -22,7 +22,7 @@
 
       <mat-form-field class="donation-full-width">
         <mat-label>Intituição</mat-label>
-        <mat-select formControlName="Instituicao" required>
+        <mat-select formControlName="IdInstituicao" required>
           <mat-option *ngFor="let instituicao of instituicaoList" [value]="instituicao.id">
             {{instituicao.nome}}
           </mat-option>
@@ -30,8 +30,8 @@
       </mat-form-field>
 
       <mat-form-field class="donation-full-width">
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="Status" required>
+        <mat-label>Transporte</mat-label>
+        <mat-select formControlName="Transporte" required>
           <mat-option *ngFor="let opt of statusOptions" [value]="opt">
             {{opt}}
           </mat-option>
