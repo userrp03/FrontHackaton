@@ -1,5 +1,7 @@
 .signin-card {
-    max-width: 400px;
+    max-width: 500px;
+    margin-left: 30%;
+    margin-right: 30%;
   }
 
   .signin-form {
@@ -7,7 +9,7 @@
     max-width: 500px;
     width: 100%;
   }
-  
+
   .signin-full-width {
     width: 100%;
   }

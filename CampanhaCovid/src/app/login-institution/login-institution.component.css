@@ -1,5 +1,7 @@
 .login-card {
     max-width: 400px;
+    margin-left: 30%;
+    margin-right: 30%;
   }
 
   .login-form {
@@ -7,7 +9,7 @@
     max-width: 500px;
     width: 100%;
   }
-  
+
   .login-full-width {
     width: 100%;
   }
